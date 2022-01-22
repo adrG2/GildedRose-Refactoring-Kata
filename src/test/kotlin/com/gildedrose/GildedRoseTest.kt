@@ -9,8 +9,7 @@ class GildedRoseTest: FreeSpec({
         val items = arrayOf<Item>(Item("foo", 0, 0))
         val app = GildedRose(items)
         app.updateQuality()
-        app.items[0].name shouldBe "fixme"
-        // assertEquals("fixme", app.items[0].name)
+        app.items[0].name shouldBe "foo"
     }
 })
 
