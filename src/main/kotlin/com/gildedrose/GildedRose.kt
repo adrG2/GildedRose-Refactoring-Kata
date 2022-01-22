@@ -34,7 +34,7 @@ class GildedRose(var items: List<Item>) {
             }
 
             if (!items[i].isSulfuras) {
-                items[i].sellIn = items[i].sellIn - 1
+                items[i].sellIn = items[i].decrementSellIn()
             }
 
             if (items[i].sellIn < 0) {

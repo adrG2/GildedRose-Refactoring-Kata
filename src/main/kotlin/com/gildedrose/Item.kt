@@ -13,5 +13,4 @@ val Item.isSulfuras: Boolean
 
 fun Item.incrementQuality() = quality + 1
 fun Item.decrementQuality() = quality - 1
-fun Item.incrementSellIn() = sellIn + 1
 fun Item.decrementSellIn() = sellIn - 1
