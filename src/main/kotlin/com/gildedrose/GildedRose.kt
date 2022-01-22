@@ -10,23 +10,23 @@ class GildedRose(var items: List<Item>) {
             if (!items[i].isAgedBrie && !items[i].isBackstage) {
                 if (items[i].quality > QUALITY_MIN) {
                     if (!items[i].isSulfuras) {
-                        items[i].quality = items[i].quality - 1
+                        items[i].quality = items[i].decrementQuality()
                     }
                 }
             } else {
                 if (items[i].quality < QUALITY_MAX) {
-                    items[i].quality = items[i].quality + 1
+                    items[i].quality = items[i].incrementQuality()
 
                     if (items[i].isBackstage) {
                         if (items[i].sellIn < 11) {
                             if (items[i].quality < QUALITY_MAX) {
-                                items[i].quality = items[i].quality + 1
+                                items[i].quality = items[i].incrementQuality()
                             }
                         }
 
                         if (items[i].sellIn < 6) {
                             if (items[i].quality < QUALITY_MAX) {
-                                items[i].quality = items[i].quality + 1
+                                items[i].quality = items[i].incrementQuality()
                             }
                         }
                     }
@@ -42,7 +42,7 @@ class GildedRose(var items: List<Item>) {
                     if (!items[i].isBackstage) {
                         if (items[i].quality > QUALITY_MIN) {
                             if (!items[i].isSulfuras) {
-                                items[i].quality = items[i].quality - 1
+                                items[i].quality = items[i].decrementQuality()
                             }
                         }
                     } else {
@@ -50,7 +50,7 @@ class GildedRose(var items: List<Item>) {
                     }
                 } else {
                     if (items[i].quality < QUALITY_MAX) {
-                        items[i].quality = items[i].quality + 1
+                        items[i].quality = items[i].incrementQuality()
                     }
                 }
             }
