@@ -18,13 +18,13 @@ class GildedRose(var items: List<Item>) {
                     items[i].quality = items[i].incrementQuality()
 
                     if (items[i].isBackstage) {
-                        if (items[i].sellIn < 11) {
+                        if (items[i].expireInTenDaysOrLess()) {
                             if (items[i].quality < QUALITY_MAX) {
                                 items[i].quality = items[i].incrementQuality()
                             }
                         }
 
-                        if (items[i].sellIn < 6) {
+                        if (items[i].expireInSixDaysOrLess()) {
                             if (items[i].quality < QUALITY_MAX) {
                                 items[i].quality = items[i].incrementQuality()
                             }
