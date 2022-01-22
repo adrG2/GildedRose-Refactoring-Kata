@@ -7,7 +7,7 @@ import io.kotest.matchers.shouldBe
 class GildedRoseTest : FreeSpec({
 
     "it should verify one update for different items" {
-        val items = arrayOf(
+        val items = listOf(
             Item("+5 Dexterity Vest", 10, 20),
             Item("Aged Brie", 2, 0),
             Item("Elixir of the Mongoose", 5, 7),
@@ -41,10 +41,8 @@ class GildedRoseTest : FreeSpec({
 
         "assertions throw" - {
             listOf(
-                //arrayOf(Item(name = "test", sellIn = 0, quality = 0)),
-                arrayOf(Item(name = "withQualityMinus1", sellIn = 0, quality = -1)),
-                //arrayOf(Item(name = "test", sellIn = 0, quality = 50)),
-                arrayOf(Item(name = "withQuality50", sellIn = 0, quality = 51)),
+                listOf(Item(name = "withQualityMinus1", sellIn = 0, quality = -1)),
+                listOf(Item(name = "withQuality50", sellIn = 0, quality = 51)),
             ).forEach {
                 val first = it.first()
                 "given item with quality ${first.quality} and sellIn ${first.sellIn} when updateQuality then throws" {
