@@ -20,7 +20,7 @@ Bastante simple, ¿no? Bueno, ahora es donde se pone interesante:
 
 * La `calidad` de un artículo nunca es negativa (guard clause)
 * La `calidad` de un artículo nunca es mayor a `50` (guard clause)
-* Una vez que ha pasado la **fecha recomendada de venta**, la `calidad` se degrada al **doble** de velocidad
+* Una vez que had pasado la **fecha recomendada e venta**, la `calidad` se degrada al **doble** de velocidad
 
 Caso Sulfuras - Calidad se queda igual
 * El artículo "Sulfuras" (`Sulfuras`), siendo un artículo legendario, no modifica su `fecha de venta` ni se degrada

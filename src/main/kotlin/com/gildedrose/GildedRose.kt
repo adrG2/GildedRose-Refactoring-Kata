@@ -1,7 +1,5 @@
 package com.gildedrose
 
-private const val QUALITY_MAX = 50
-private const val QUALITY_MIN = 0
 
 class GildedRose(var items: List<Item>) {
 
@@ -10,10 +8,15 @@ class GildedRose(var items: List<Item>) {
             if (!items[i].isAgedBrie && !items[i].isBackstage) {
                 if (items[i].quality > QUALITY_MIN) {
                     if (!items[i].isSulfuras) {
-                        items[i].quality = items[i].decrementQuality()
+                        if (items[i].isConjured) {
+                            items[i].quality = items[i].decrementQuality(2)
+                        } else {
+                            items[i].quality = items[i].decrementQuality()
+                        }
                     }
                 }
             } else {
+                // AgedBrie y Backstage
                 if (items[i].quality < QUALITY_MAX) {
                     items[i].quality = items[i].incrementQuality()
 
@@ -24,7 +27,7 @@ class GildedRose(var items: List<Item>) {
                             }
                         }
 
-                        if (items[i].expireInSixDaysOrLess()) {
+                        if (items[i].expireInFiveDaysOrLess()) {
                             if (items[i].quality < QUALITY_MAX) {
                                 items[i].quality = items[i].incrementQuality()
                             }
@@ -34,21 +37,29 @@ class GildedRose(var items: List<Item>) {
             }
 
             if (!items[i].isSulfuras) {
+                // normales y conjured
                 items[i].sellIn = items[i].decrementSellIn()
             }
 
-            if (items[i].sellIn < 0) {
+            if (items[i].isSellInExpired()) {
                 if (!items[i].isAgedBrie) {
                     if (!items[i].isBackstage) {
                         if (items[i].quality > QUALITY_MIN) {
                             if (!items[i].isSulfuras) {
-                                items[i].quality = items[i].decrementQuality()
+                                // normales y conjured
+                                if (items[i].isConjured) {
+                                    items[i].quality = items[i].decrementQuality(2)
+                                } else {
+                                    items[i].quality = items[i].decrementQuality()
+                                }
                             }
                         }
                     } else {
+                        // Solo backstage
                         items[i].quality = items[i].quality - items[i].quality
                     }
                 } else {
+                    // Solo AgedBrie
                     if (items[i].quality < QUALITY_MAX) {
                         items[i].quality = items[i].incrementQuality()
                     }
