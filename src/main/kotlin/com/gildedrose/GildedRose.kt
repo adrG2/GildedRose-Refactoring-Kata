@@ -19,12 +19,10 @@ class GildedRose(var items: List<Item>) {
                     }
                 }
             } else {
-                if (items[i].quality > QUALITY_MIN) {
-                    if (items[i].isConjured) {
-                        items[i].quality = items[i].decrementQuality(2)
-                    } else {
-                        items[i].quality = items[i].decrementQuality()
-                    }
+                if (items[i].isConjured) {
+                    items[i].quality = items[i].decrementQuality(2)
+                } else {
+                    items[i].quality = items[i].decrementQuality()
                 }
             }
 
