@@ -15,18 +15,30 @@ val Item.isConjured: Boolean
     get() = name == "Conjured Mana Cake"
 
 const val QUALITY_MAX = 50
-fun Item.incrementQuality(unit: Int = 1) =
+fun Item.add(unit: Int = 1) =
     (quality + unit).let {
         if (it >= QUALITY_MAX) QUALITY_MAX else it
     }
 
+fun Item.incrementQuality(unit: Int = 1) {
+    quality = (quality + unit).let {
+        if (it >= QUALITY_MAX) QUALITY_MAX else it
+    }
+}
+
 const val QUALITY_MIN = 0
-fun Item.decrementQuality(unit: Int = 1): Int =
+fun Item.minus(unit: Int = 1): Int =
     (quality - unit).let {
         if (it <= QUALITY_MIN) QUALITY_MIN else it
     }
 
-fun Item.decrementSellIn() = sellIn - 1
+fun Item.decrementQuality(unit: Int = 1) {
+    quality = (quality - unit).let {
+        if (it <= QUALITY_MIN) QUALITY_MIN else it
+    }
+}
+
+fun Item.decrementSellIn() = sellIn--
 
 fun Item.isSellInExpired() = sellIn < 0
 fun Item.expireInTenDaysOrLess() = sellIn < 11

@@ -9,7 +9,7 @@ class GildedRoseTest : FreeSpec({
         val gildedRose = GildedRose(
             listOf(
                 Item("+5 Dexterity Vest", 10, 20),
-                Item("Aged Brie", 2, 0),
+                Item("Aged Brie", 0, 0),
                 Item("Elixir of the Mongoose", 5, 7),
                 Item("Sulfuras, Hand of Ragnaros", 0, 80),
                 Item("Sulfuras, Hand of Ragnaros", -1, 80),
@@ -30,7 +30,7 @@ class GildedRoseTest : FreeSpec({
         )
         gildedRose.updateQuality()
         gildedRose.items[0] shouldBe Item("+5 Dexterity Vest", 9, 19)
-        gildedRose.items[1] shouldBe Item("Aged Brie", 1, 1)
+        gildedRose.items[1] shouldBe Item("Aged Brie", -1, 2)
         gildedRose.items[2] shouldBe Item("Elixir of the Mongoose", 4, 6)
         gildedRose.items[3] shouldBe Item("Sulfuras, Hand of Ragnaros", 0, 80)
         gildedRose.items[4] shouldBe Item("Sulfuras, Hand of Ragnaros", -1, 80)
