@@ -35,26 +35,21 @@ class GildedRose(var items: List<Item>) {
             }
 
             if (items[i].isSellInExpired()) {
-                if (!items[i].isAgedBrie) {
+                if (items[i].isAgedBrie) {
+                    items[i].quality = items[i].incrementQuality()
+                } else {
                     if (!items[i].isBackstage) {
-                        if (items[i].quality > QUALITY_MIN) {
-                            if (!items[i].isSulfuras) {
-                                // normales y conjured
-                                if (items[i].isConjured) {
-                                    items[i].quality = items[i].decrementQuality(2)
-                                } else {
-                                    items[i].quality = items[i].decrementQuality()
-                                }
+                        if (!items[i].isSulfuras) {
+                            // normales y conjured
+                            if (items[i].isConjured) {
+                                items[i].quality = items[i].decrementQuality(2)
+                            } else {
+                                items[i].quality = items[i].decrementQuality()
                             }
                         }
                     } else {
                         // Solo backstage
                         items[i].quality = items[i].quality - items[i].quality
-                    }
-                } else {
-                    // Solo AgedBrie
-                    if (items[i].quality < QUALITY_MAX) {
-                        items[i].quality = items[i].incrementQuality()
                     }
                 }
             }
