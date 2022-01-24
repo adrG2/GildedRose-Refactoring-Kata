@@ -36,5 +36,33 @@ class GildedRose(var items: List<Item>) {
             }
         }
     }
+
+    private fun Item.update() {
+        decrementSellIn()
+        when(name) {
+            "Aged Brie" -> {
+                incrementQuality()
+                if (sellIn < 0) incrementQuality()
+            }
+            "Backstage passes to a TAFKAL80ETC concert" -> {
+                when  {
+                    sellIn < 0 -> quality = 0
+                    sellIn in 0..5 -> incrementQuality(3)
+                    sellIn in 6..10 -> incrementQuality(2)
+                    else -> incrementQuality()
+                }
+            }
+            "Sulfuras, Hand of Ragnaros" -> {}
+            "Conjured Mana Cake" -> {
+                decrementQuality(2)
+                if (sellIn < 0) decrementQuality(2)
+            }
+            else -> {
+                decrementQuality()
+                if (sellIn < 0) decrementQuality()
+            }
+        }
+    }
 }
+
 
