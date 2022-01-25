@@ -2,44 +2,37 @@ package com.gildedrose
 
 data class Item(var name: String, var sellIn: Int, var quality: Int)
 
-val Item.isAgedBrie: Boolean
-    get() = name == "Aged Brie"
-
-val Item.isBackstage: Boolean
-    get() = name == "Backstage passes to a TAFKAL80ETC concert"
-
-val Item.isSulfuras: Boolean
-    get() = name == "Sulfuras, Hand of Ragnaros"
-
-val Item.isConjured: Boolean
-    get() = name == "Conjured Mana Cake"
-
-const val QUALITY_MAX = 50
-fun Item.add(unit: Int = 1) =
-    (quality + unit).let {
-        if (it >= QUALITY_MAX) QUALITY_MAX else it
-    }
-
-fun Item.incrementQuality(unit: Int = 1) {
-    quality = (quality + unit).let {
-        if (it >= QUALITY_MAX) QUALITY_MAX else it
-    }
-}
-
-const val QUALITY_MIN = 0
-fun Item.minus(unit: Int = 1): Int =
-    (quality - unit).let {
-        if (it <= QUALITY_MIN) QUALITY_MIN else it
-    }
-
-fun Item.decrementQuality(unit: Int = 1) {
-    quality = (quality - unit).let {
-        if (it <= QUALITY_MIN) QUALITY_MIN else it
+//TODO In case there are a lot of items it might be necessary to make this mutable by performance
+fun Item.update(): Item = (sellIn - 1).let { currentSellIn ->
+    when (name) {
+        "Aged Brie" -> copy(
+            sellIn = currentSellIn,
+            quality = if (currentSellIn < 0) qualityIncreaseIn(2) else qualityIncreaseIn(1)
+        )
+        "Backstage passes to a TAFKAL80ETC concert" -> when {
+            currentSellIn < 0 -> copy(sellIn = currentSellIn, quality = 0)
+            currentSellIn in 0..5 -> copy(sellIn = currentSellIn, quality = qualityIncreaseIn(3))
+            currentSellIn in 6..10 -> copy(sellIn = currentSellIn, quality = qualityIncreaseIn(2))
+            else -> copy(sellIn = currentSellIn, quality = qualityIncreaseIn(1))
+        }
+        "Sulfuras, Hand of Ragnaros" -> this
+        "Conjured Mana Cake" -> copy(
+            sellIn = currentSellIn,
+            quality = if (currentSellIn < 0) qualityDecreaseIn(4) else qualityDecreaseIn(2)
+        )
+        else -> copy(
+            sellIn = currentSellIn,
+            quality = if (currentSellIn < 0) qualityDecreaseIn(2) else qualityDecreaseIn(1)
+        )
     }
 }
 
-fun Item.decrementSellIn() = sellIn--
+private const val QUALITY_MAX = 50
+private fun Item.qualityIncreaseIn(unit: Int) = (quality + unit).let {
+    if (it >= QUALITY_MAX) QUALITY_MAX else it
+}
 
-fun Item.isSellInExpired() = sellIn < 0
-fun Item.expireInTenDaysOrLess() = sellIn < 11
-fun Item.expireInFiveDaysOrLess() = sellIn < 6
+private const val QUALITY_MIN = 0
+private fun Item.qualityDecreaseIn(unit: Int) = (quality - unit).let {
+    if (it <= QUALITY_MIN) QUALITY_MIN else it
+}
